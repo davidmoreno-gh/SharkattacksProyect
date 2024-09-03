@@ -1,2 +1,2 @@
-# SharkattacksProyect
-Proyect about Sharck-attacks dataframe
+# SharkattacksProject
+Project about Sharck-attacks dataframe
