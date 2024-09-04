@@ -1,8 +1,8 @@
 
 
-def clean_state(df):
+def clean_state(df, value):
     # We can delete the states that have less than 16 attack
-    df = df[df['State'].map(df['State'].value_counts()) > 15]
+    df = df[df['State'].map(df['State'].value_counts()) > value]
     return df
 
 
