@@ -7,7 +7,7 @@ def BC(string):
     en caso de que encuentre dentro de la cadena algo del tipo BC ó bc, para luego esos CEROS, convertirlos a null
     en nuestro df sobre el que vamos a graficar """
     try:
-        x = re.findall('(?i)B\.(?i)C', str(string))
+        x = re.search(r'(?i)B\.C', str(string))
         if x == []: #No hay match dentro de la cadena ("Date" de la fila en la que estemos)
             return string
         else:
@@ -48,4 +48,3 @@ def rescatar_fechas(string): #Clean column
          return np.nan
     else:
         return string
-#def cambiar_year (): #year replacement
