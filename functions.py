@@ -2,7 +2,7 @@ import re
 import numpy as np
 import pandas as pd
 
-def BC(string):
+'''def BC(string):
     """Mira en la cadena que le pasemos (pensado para el contenido de df.Date) nos va a devolver 0 
     en caso de que encuentre dentro de la cadena algo del tipo BC ó bc, para luego esos CEROS, convertirlos a null
     en nuestro df sobre el que vamos a graficar """
@@ -13,7 +13,7 @@ def BC(string):
         else:
             return np.nan #Si encuentra un Bc lo convierte en NaN
     except IndexError:
-        return string
+        return string'''
 
 def interval_years(string):
     """Mira en la cadena que le damos si corresponden con stirngs de datos del tipo YYYY - YYYY o del tipo
@@ -41,7 +41,7 @@ def sueltos (string): #4 Digitos aislados
 def rescatar_fechas(string): #Clean column
     """A través de esta funcion aplicamos funcion BC y funcion interval_years en ese orden a lo largo de la string
     que le metamos, en principio elementos de la columna df.Date"""
-    string = BC(string)
+    #string = BC(string)
     string = sueltos(string)
     string = interval_years(string)
     if int(string) == 0:
