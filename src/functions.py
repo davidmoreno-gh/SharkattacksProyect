@@ -13,7 +13,7 @@ Elimina los posibles espacios del principio y final del string'''
 
 
 
-def clean_corrupted_rows(data):
+def clean_corrupted_col(data):
     useless_cols_to_drop = ['age', 'time', 'species', 'unnamed_21', 'unnamed_22']
     data = data.drop(columns = useless_cols_to_drop)
     return data
@@ -21,7 +21,7 @@ def clean_corrupted_rows(data):
 '''Esta función agrupa las columnas que hemos visto con más de un 60% de datos nulos y las borra'''
 
 
-def clean_unwilling_rows(data):
+def clean_unwilling_col(data):
     unwilling_cols_to_drop = ['date','type','name','injury']
     data = data.drop(columns = unwilling_cols_to_drop)
     return data
@@ -57,9 +57,9 @@ def clean_state(data, value):
 
 
 
-def clean_sex(data, sub):
+def clean_sex(data):
     changes = {' M': 'M', 'M x 2': 'M','M ': 'M', 'lli': 'F'}
-    data[sub] = data[sub].replace(changes)
+    data['sex'] = data['sex'].replace(changes)
     return data
 
 
