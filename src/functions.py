@@ -5,8 +5,6 @@ import numpy as np
 
 def clean_labels(data):
     data.columns = data.columns.str.lower().str.replace(" ","_").str.replace(".","_").str.replace(":","").str.strip()
-    data.rename(columns={"species_" : "species"})
-    data.rename(columns={"unnamed_11" : "death"})
     return data
 
 '''Esta función coge cada nombre de columna de nuestro dataframe, y aplica los siguientes métodos en string:
@@ -23,7 +21,12 @@ def clean_corrupted_rows(data):
 '''Esta función agrupa las columnas que hemos visto con más de un 60% de datos nulos y las borra'''
 
 
+def clean_unwilling_rows(data):
+    unwilling_cols_to_drop = ['date','type','name','injury']
+    data = data.drop(columns = unwilling_cols_to_drop)
+    return data
 
+'''
 def eliminar_columnas_input(data):
 
     print("Columnas disponibles:")
@@ -39,31 +42,22 @@ def eliminar_columnas_input(data):
     data_user_clean = data.drop(columns=[col for col in selected_to_delete if col in data.columns])
     
     return data_user_clean
-
-
-
-def clean_unwilling_rows(data):
-    unwilling_cols_to_drop = ['date','type','name','injury']
-    data = data.drop(columns = unwilling_cols_to_drop)
-    return data
-
+'''
 
 
 def clean_country(data, value):
-    # We can delete the countries that have less than 13 attack
     data = data[data['country'].map(data['country'].value_counts()) > value]
     return data
 
 
 
 def clean_state(data, value):
-    # We can delete the states that have less than 16 attack
     data = data[data['state'].map(data['state'].value_counts()) > value]
     return data
 
 
 
-def clean_sex(data, sub):
+def clean_sex(data, sub)
     changes = {' M': 'M', 'M x 2': 'M','M ': 'M', 'lli': 'F'}
     data[sub] = data[sub].replace(changes)
     return data
