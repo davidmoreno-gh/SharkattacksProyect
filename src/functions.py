@@ -6,19 +6,20 @@ import numpy as np
 def clean_labels(data):
     data.columns = data.columns.str.lower().str.replace(" ","_").str.replace(".","_").str.replace(":","").str.strip()
     data.rename(columns={"species_" : "species"})
+    data.rename(columns={"unnamed_11" : "death"})
     return data
 
 '''Esta función coge cada nombre de columna de nuestro dataframe, y aplica los siguientes métodos en string:
-convierte todo en minúscula.
-remplaza los espacios, puntos y dos puntos por underscores
+convierte todo en minúscula, remplaza los espacios, puntos y dos puntos por underscores
 Elimina los posibles espacios del principio y final del string'''
 
 
 
-def clean_useless_rows(data):
+def clean_corrupted_rows(data):
     useless_cols_to_drop = ['age', 'time', 'species', 'unnamed_21', 'unnamed_22']
     data = data.drop(columns = useless_cols_to_drop)
     return data
+
 '''Esta función agrupa las columnas que hemos visto con más de un 60% de datos nulos y las borra'''
 
 
