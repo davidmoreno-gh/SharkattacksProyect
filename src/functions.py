@@ -1,3 +1,7 @@
+import re
+import pandas as pd
+import numpy as np
+
 ############ FUNCIONES DE ANA ###############
 
 def clean_labels(df_sharkattack):
