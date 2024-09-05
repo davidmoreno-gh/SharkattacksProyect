@@ -4,27 +4,29 @@ import numpy as np
 
 ############ FUNCIONES DE ANA ###############
 
-def clean_labels(df_sharkattack):
-    # rename and replace the columns into correct names
-    df_sharkattack.columns = df_sharkattack.columns.str.lower().str.replace(" ","_").str.replace(".","_").str.replace(":","").str.strip()
-    df_sharkattack = df_sharkattack.rename(columns={"species_" : "species"})
-    return df_sharkattack
+def clean_labels(data):
+    data.columns = data.columns.str.lower().str.replace(" ","_").str.replace(".","_").str.replace(":","").str.strip()
+    data = data.rename(columns={"species_" : "species"})
 
-def clean_rows(df_sharkattack):
-    '''
-    Columns: unnamed_21 and unnamed_22 have all or almost all null values ​​4402
-    Columns: pdf, href_formula, href, case_number, case_number_1, original_order no they have so many null values ​​but we are not going to need them for our analysis so we are going to eliminate them too
-    '''
-    df_sharkattack.loc[:4402]
-    # save the columns to remove into list
-    columns_failed = ['date','type','name','injury','time','species','source','pdf', 'href_formula', 'href', 'case_number', 'case_number_1', 'original_order','unnamed_21','unnamed_22']
-    # next remove it
-    df_sharkattack = df_sharkattack.drop(columns = columns_failed)
-    # change column name: unnamed_11 to representative name
-    df_sharkattack = df_sharkattack.rename(columns={"unnamed_11" : "death"})
+    '''Esta función coge cada nombre de columna de nuestro dataframe, y aplica los siguientes métodos en string:
+    convierte todo en minúscula.
+    remplaza los espacios, puntos y dos puntos por underscores
+    Elimina los posibles espacios del principio y final del string'''
 
-    return df_sharkattack
 
+def clean_useless_rows(data):
+    useless_cols_to_drop = ['age', 'time', 'species', 'unnamed_21', 'unnamed_22']
+    data = data.drop(columns = useless_cols_to_drop)
+
+'''Esta función agrupa las columnas que hemos visto con más de un 60% de datos nulos y las borra'''
+
+
+'''
+#columns_failed = ['date','type','name','injury','source','pdf', 'href_formula', 'href', 'case_number', 'case_number_1', 'original_order']
+# change column name: unnamed_11 to representative name
+#df_sharkattack = df_sharkattack.rename(columns={"unnamed_11" : "death"})'''
+
+'''
 def clean_state(df, value):
     # We can delete the states that have less than 16 attack
     df = df[df['state'].map(df['state'].value_counts()) > value]
@@ -39,8 +41,7 @@ def clean_sex(df, sub):
     changes = {' M': 'M', 'M x 2': 'M','M ': 'M', 'lli': 'F'}
     df[sub] = df[sub].replace(changes)
     return df
-
-############## FUNCIONES DE LYDIA ############# (estaban repetidas)
+'''
 
 ################# FUNCIONES DE DAVID ####################
 
