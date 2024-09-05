@@ -4,15 +4,16 @@ import numpy as np
 
 
 def clean_labels(data):
+    '''Esta función coge cada nombre de columna de nuestro dataframe, y aplica los siguientes métodos en string:
+convierte todo en minúscula, remplaza los espacios, puntos y dos puntos por underscores
+Elimina los posibles espacios del principio y final del string'''
     data.columns = data.columns.str.lower().str.replace(" ","_").str.replace(".","_").str.replace(":","").str.strip()
     return data
 
-'''Esta función coge cada nombre de columna de nuestro dataframe, y aplica los siguientes métodos en string:
-convierte todo en minúscula, remplaza los espacios, puntos y dos puntos por underscores
-Elimina los posibles espacios del principio y final del string'''
 
 
 
+# colocar segundo argumento la lista. juntar con la de abajo
 def clean_corrupted_col(data):
     useless_cols_to_drop = ['age', 'time', 'species', 'unnamed_21', 'unnamed_22']
     data = data.drop(columns = useless_cols_to_drop)
@@ -25,6 +26,10 @@ def clean_unwilling_col(data):
     unwilling_cols_to_drop = ['date','type','name','injury']
     data = data.drop(columns = unwilling_cols_to_drop)
     return data
+
+def drop_gen_cols(df, cols_to_drop):
+    return df.drop(columns=cols_to_drop, inplace=True)
+    
 
 '''
 def eliminar_columnas_input(data):
