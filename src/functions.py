@@ -2,11 +2,11 @@ import re
 import pandas as pd
 import numpy as np
 
-############ FUNCIONES DE ANA ###############
 
 def clean_labels(data):
     data.columns = data.columns.str.lower().str.replace(" ","_").str.replace(".","_").str.replace(":","").str.strip()
-    data = data.rename(columns={"species_" : "species"})
+    data.rename(columns={"species_" : "species"})
+    return data
 
 '''Esta función coge cada nombre de columna de nuestro dataframe, y aplica los siguientes métodos en string:
 convierte todo en minúscula.
@@ -14,34 +14,60 @@ remplaza los espacios, puntos y dos puntos por underscores
 Elimina los posibles espacios del principio y final del string'''
 
 
+
 def clean_useless_rows(data):
     useless_cols_to_drop = ['age', 'time', 'species', 'unnamed_21', 'unnamed_22']
     data = data.drop(columns = useless_cols_to_drop)
-
+    return data
 '''Esta función agrupa las columnas que hemos visto con más de un 60% de datos nulos y las borra'''
 
 
-'''
-#columns_failed = ['date','type','name','injury','source','pdf', 'href_formula', 'href', 'case_number', 'case_number_1', 'original_order']
-# change column name: unnamed_11 to representative name
-#df_sharkattack = df_sharkattack.rename(columns={"unnamed_11" : "death"})'''
 
-'''
-def clean_state(df, value):
-    # We can delete the states that have less than 16 attack
-    df = df[df['state'].map(df['state'].value_counts()) > value]
-    return df
+def eliminar_columnas_input(data):
 
-def clean_country(df, value):
+    print("Columnas disponibles:")
+    print(data.columns.tolist())
+    
+    selected_to_delete = input("Introduce las columnas que quieras eliminar (separadas por comas): ")
+    selected_to_delete = [col.strip() for col in selected_to_delete.split(',')]
+    
+    columnas_no_existentes = [col for col in selected_to_delete if col not in data.columns]
+    if columnas_no_existentes:
+        print(f"Las siguientes columnas no existen en el DataFrame: {', '.join(columnas_no_existentes)}")
+    
+    data_user_clean = data.drop(columns=[col for col in selected_to_delete if col in data.columns])
+    
+    return data_user_clean
+
+
+
+def clean_unwilling_rows(data):
+    unwilling_cols_to_drop = ['date','type','name','injury']
+    data = data.drop(columns = unwilling_cols_to_drop)
+    return data
+
+
+
+def clean_country(data, value):
     # We can delete the countries that have less than 13 attack
-    df = df[df['country'].map(df['country'].value_counts()) > value]
-    return df
+    data = data[data['country'].map(data['country'].value_counts()) > value]
+    return data
 
-def clean_sex(df, sub):
+
+
+def clean_state(data, value):
+    # We can delete the states that have less than 16 attack
+    data = data[data['state'].map(data['state'].value_counts()) > value]
+    return data
+
+
+
+def clean_sex(data, sub):
     changes = {' M': 'M', 'M x 2': 'M','M ': 'M', 'lli': 'F'}
-    df[sub] = df[sub].replace(changes)
-    return df
-'''
+    data[sub] = data[sub].replace(changes)
+    return data
+
+
 
 ################# FUNCIONES DE DAVID ####################
 
