@@ -57,7 +57,7 @@ def clean_state(data, value):
 
 
 
-def clean_sex(data, sub)
+def clean_sex(data, sub):
     changes = {' M': 'M', 'M x 2': 'M','M ': 'M', 'lli': 'F'}
     data[sub] = data[sub].replace(changes)
     return data
