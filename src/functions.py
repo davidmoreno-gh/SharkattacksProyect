@@ -8,10 +8,10 @@ def clean_labels(data):
     data.columns = data.columns.str.lower().str.replace(" ","_").str.replace(".","_").str.replace(":","").str.strip()
     data = data.rename(columns={"species_" : "species"})
 
-    '''Esta función coge cada nombre de columna de nuestro dataframe, y aplica los siguientes métodos en string:
-    convierte todo en minúscula.
-    remplaza los espacios, puntos y dos puntos por underscores
-    Elimina los posibles espacios del principio y final del string'''
+'''Esta función coge cada nombre de columna de nuestro dataframe, y aplica los siguientes métodos en string:
+convierte todo en minúscula.
+remplaza los espacios, puntos y dos puntos por underscores
+Elimina los posibles espacios del principio y final del string'''
 
 
 def clean_useless_rows(data):
