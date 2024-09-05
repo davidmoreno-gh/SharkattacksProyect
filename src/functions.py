@@ -5,12 +5,15 @@ import numpy as np
 
 def clean_labels(data):
     '''Esta función coge cada nombre de columna de nuestro dataframe, y aplica los siguientes métodos en string:
-convierte todo en minúscula, remplaza los espacios, puntos y dos puntos por underscores
-Elimina los posibles espacios del principio y final del string'''
+    convierte todo en minúscula, remplaza los espacios, puntos y dos puntos por underscores
+    Elimina los posibles espacios del principio y final del string'''
     data.columns = data.columns.str.lower().str.replace(" ","_").str.replace(".","_").str.replace(":","").str.strip()
+    data.rename(columns={"species_" : "species", "unnamed_11" : "death"}, inplace= True)
     return data
 
-
+def clean_rows(df):
+    df = df.loc[:4000]
+    return df
 
 
 # colocar segundo argumento la lista. juntar con la de abajo
@@ -27,8 +30,9 @@ def clean_unwilling_col(data):
     data = data.drop(columns = unwilling_cols_to_drop)
     return data
 
-def drop_gen_cols(df, cols_to_drop):
-    return df.drop(columns=cols_to_drop, inplace=True)
+def drop_cols(df, cols_to_drop):
+    df = df.drop(columns=cols_to_drop)
+    return df
     
 
 '''
